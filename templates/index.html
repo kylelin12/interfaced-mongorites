@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>Space Mongos on Earth</h1>
+        <form method="POST" action="{{url_for('query')}}">
+            <select name="type-select" id="type-select" onchange="switch_types()">
+                <option value="ltmass" selected>Less Than Mass</option>
+                <option value="gtmass">Greater Than Mass</option>
+                <option value="mass">Equal To Mass</option>
+                <option value="recclass">Recclass</option>
+                <option value="recclass-mass">Recclass + Mass</option>
+            </select>
+            <input type="number" name="mass" id="mass" placeholder="mass"/>
+            <input type="text" name="recclass" id="recclass" placeholder="recclass"/>
+            <button type="submit">Run Query</button>
+        </form>
+        {% if q_results %}
+            {% for result in q_results %}
+            <textarea style="resize: none; height: 500px; width: 400px;" name="results" id="results">
+                {{ result }}
+            </textarea>
+            {% endfor %}
+        {% endif %}
+        <script type="text/javascript">
+
+            var mass_toggle = function(state) {
+                var mass_input = document.getElementById("mass");
+                switch(state) {
+                    case "on":
+                        mass_input.style = "display: block;";
+                        mass_input.required = true;
+                        break;
+                    case "off":
+                        mass_input.style = "display: none;";
+                        mass_input.required = false;
+                        break;
+                }
+            };
+
+            var recclass_toggle = function(state) {
+                var recclass_input = document.getElementById("recclass");
+                switch(state) {
+                    case "on":
+                        recclass_input.style = "display: block;";
+                        recclass_input.required = true;
+                        break;
+                    case "off":
+                        recclass_input.style = "display: none;";
+                        recclass_input.required = false;
+                        break;
+                }
+            };
+
+            var switch_types = function() {
+                var type_select = document.getElementById("type-select");
+                var type_selected = type_select.options[type_select.selectedIndex].value;
+                console.log(type_selected);
+                var on = "on";
+                var off = "off";
+                switch(type_selected) {
+                    case "ltmass":
+                        mass_toggle(on);
+                        recclass_toggle(off);
+                        break;
+                    case "gtmass":
+                        mass_toggle(on);
+                        recclass_toggle(off);
+                        break;
+                    case "mass":
+                        mass_toggle(on);
+                        recclass_toggle(off);
+                        break;
+                    case "recclass":
+                        mass_toggle(off);
+                        recclass_toggle(on);
+                        break;
+                    case "recclass-mass":
+                        mass_toggle(on);
+                        recclass_toggle(on);
+                        break;
+                }
+            };
+
+            switch_types();
+        </script>
+    </body>
+</html>

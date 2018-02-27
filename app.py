@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    mongorites.main()
     return render_template('index.html')
 
 @app.route('/query', methods=['POST'])
@@ -35,5 +34,6 @@ def query():
     return render_template('index.html', q_results=results)
 
 if __name__ == '__main__':
+    mongorites.main()
     app.debug = True
     app.run()

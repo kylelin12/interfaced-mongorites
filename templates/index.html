@@ -18,12 +18,16 @@
             <input type="text" name="recclass" id="recclass" placeholder="recclass"/>
             <button type="submit">Run Query</button>
         </form>
-        {% if q_results %}
-            {% for result in q_results %}
-            <textarea style="resize: none; height: 500px; width: 400px;" name="results" id="results">
-                {{ result }}
-            </textarea>
-            {% endfor %}
+        {% if q_results is defined %}
+            {% if q_results.count() > 0 %}
+                {% for result in q_results %}
+                <textarea style="resize: none; height: 500px; width: 400px;" name="results" id="results">
+                    {{ result }}
+                </textarea>
+                {% endfor %}
+            {% else %}
+            <h1 style="color: red;">No Results Found</h1>
+            {% endif %}
         {% endif %}
         <script type="text/javascript">
 

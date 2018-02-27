@@ -13,20 +13,23 @@ def query():
     query_type = request.form["type-select"]
 
     if request.form["mass"] != "":
-        mass = request.form["mass"]
+        mass = int(request.form["mass"])
 
     if request.form["recclass"] != "":
         recclass = request.form["recclass"]
 
+    print("query type: " + query_type)
+    
     if query_type == "ltmass":
+        print("ltmass")
         results = mongorites.query_ltmass(mass)
-    if query_type == "gtmass":
+    elif query_type == "gtmass":
         results = mongorites.query_gtmass(mass)
-    if query_type == "mass":
+    elif query_type == "mass":
         results = mongorites.query_mass(mass)
-    if query_type == "recclass":
+    elif query_type == "recclass":
         results = mongorites.query_recclass(recclass)
-    if query_type == "recclass-mass":
+    elif query_type == "recclass-mass":
         results = mongorites.query_recclass_mass(recclass, mass)
     
     return render_template('index.html', q_results=results)

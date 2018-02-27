@@ -29,7 +29,7 @@ def main():
     drop_collection(fname)
 
     # JSON to collection
-    json_to_collection(fname + ".json")
+    json_to_collection("./utils/" + fname + ".json")
 
     # Test queries
     #print_query(query_all())
